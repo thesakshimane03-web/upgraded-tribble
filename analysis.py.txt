@@ -1,0 +1,32 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# CSV read karo
+data = pd.read_csv("Student.csv")
+
+# Total marks add karo
+data['Total'] = data['Maths'] + data['Physics'] + data['Chemistry']
+
+# Graph
+plt.figure(figsize=(10,6))
+plt.plot(data['Total'], marker='o', linestyle='-', color='blue')
+plt.title("Student Total Marks Analysis")
+plt.xlabel("Student Index")
+plt.ylabel("Total Marks")
+plt.grid(True)
+plt.savefig("total_marks_graph.png")  # Graph image save ho jayega
+plt.show()
+
+# Insights
+print("Average Total Marks:", data['Total'].mean())
+print("Maximum Total Marks:", data['Total'].max())
+print("Minimum Total Marks:", data['Total'].min())
+
+# High scorers
+avg = data['Total'].mean()
+high_scorers = data[data['Total'] > avg]
+print("\nStudents scoring above average:")
+print(high_scorers)
+
+# Save high scorers CSV
+high_scorers.to_csv("high_scorers.csv", index=False)
